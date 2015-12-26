@@ -7,7 +7,7 @@ body {
 .container {
   margin-left: auto;
   margin-right: auto;
-  max-width: 300px;
+  max-width: 400px;
 
   padding-top: 4vh;
   padding-left: 7%;
@@ -22,23 +22,28 @@ body {
   text-transform: uppercase;
 }
 
-.subtitle {
-  font-size: inherit;
+
+.date {
+  font-size: .9em;
   font-weight: inherit;
   color: rgb(168, 168, 168);
   font-style: italic;
   margin-bottom: 35px;
-}
-
-.list-title {
-  font-family: "Lato", "sans-serif";
-  font-size: 1.1em;
-  font-weight: 700;
-  color: rgb(68, 68, 68);
+  /*text-align: center;*/
 }
 
 .description {
+  margin-top: 40px;
   line-height: 2em;
+}
+
+.image-container {
+  /*text-align: center;*/
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
 }
 
 /*=================
@@ -46,7 +51,7 @@ Helpers
 ================= */
 
 a {
-  color: #fc6f44; 
+  color: #fc6f44;
   text-decoration: none;
 }
 
@@ -59,5 +64,4 @@ a {
   font-size: .75em;
   letter-spacing: .15em;
   text-transform: uppercase;
-
 }
