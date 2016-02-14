@@ -25,6 +25,7 @@ for (var i=0; i < quote.length; i++) {
 $(document).keydown(function(event) {
   var char = KEY_MAP[event.which];
   $("."+char).removeClass("hidden")
+  $("#instructions").remove();
 });
 
 /*
