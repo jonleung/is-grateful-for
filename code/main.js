@@ -27,7 +27,6 @@ $(document).keydown(function(event) {
   $("."+char).removeClass("hidden")
 });
 
-
 /*
 
 Generate a span with the given class
