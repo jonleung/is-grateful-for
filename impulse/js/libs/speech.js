@@ -34,6 +34,8 @@ function Listener (textareaId) {
 
         recognizer.interimResults = true;
         recognizer.start();
+
+        console.log('reset');
     };
 
     window.SpeechRecognition = window.SpeechRecognition ||
