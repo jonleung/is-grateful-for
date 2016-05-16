@@ -29,3 +29,13 @@ body {
 #listener {
     display: none;
 }
+
+.editable {
+  font-family: 'Sue Ellen Francisco', cursive;
+  font-size: 25px;
+  color: #EDEDED;
+  background-color: black;
+  border-width: 1px;
+  border-color: white;
+  border-style: solid;
+}
