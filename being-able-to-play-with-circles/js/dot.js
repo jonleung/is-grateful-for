@@ -1,8 +1,9 @@
 class Dot {
-  constructor(x, y, r) {
+  constructor(x, y, r, color) {
     this.x = x;
     this.y = y;
     this.r = r;
+    this.color = color || '#000000';
   }
 
   calcDistFrom(otherDot) {
@@ -37,7 +38,7 @@ class Dot {
   draw() {
     push();
     fill(BLACK);
-    ellipse(this.x, this.y, this.r, this.r);
+    ellipse(this.x, this.y, this.r*2, this.r*2);
     pop();
   }
 }
