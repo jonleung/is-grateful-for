@@ -34,6 +34,7 @@ class Dot {
 
   draw() {
     push();
+    noStroke();
     fill(this.color);
     ellipse(this.x, this.y, this.r*2, this.r*2);
     pop();
