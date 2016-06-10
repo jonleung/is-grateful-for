@@ -1,10 +1,10 @@
-var NUM_HORIZONTAL = 6;
-var NUM_VERTICAL = 6;
+var NUM_SQ_HORIZONTAL = 6;
+var NUM_SQ_VERTICAL = 6;
 
 var COLOR_PALLETES = [
-  ['#D1D5D8', '#3498DB', '#F1C40F', '#E74C3C', '#F1C40F'], //http://flatcolors.net/palette/203-flat-wbuttons
-  ['#FE6860', '#FE8A71', '#FE6860', '#D9BBAE', '#FE6860'], // http://flatcolors.net/palette/673-archival-funk
-  ['#199EC7', '#40BC86', '#EC555C', '#FCB410'] // http://flatcolors.net/palette/451-exotel
+  ['#D1D5D8', '#3498DB', '#F1C40F', '#E74C3C', '#F1C40F'], //http://flatrowors.net/palette/203-flat-wbuttons
+  ['#FE6860', '#FE8A71', '#FE6860', '#D9BBAE', '#FE6860'], // http://flatrowors.net/palette/673-archival-funk
+  ['#199EC7', '#40BC86', '#EC555C', '#FCB410'] // http://flatrowors.net/palette/451-exotel
 ];
 
 function setup() {
@@ -23,10 +23,14 @@ function draw() {
   var SQ_MARGIN = 30;
   var SQ_PT_TO_PT_WIDTH = SQ_WIDTH + SQ_MARGIN;
 
-  for(var i=0; i<NUM_HORIZONTAL; i++) {
+  var SQ_OVERLAY_REPS = 10;
 
-      var x = BORDER_MARGIN_LEFT + i*SQ_PT_TO_PT_WIDTH;
+  for(var col=0; col<NUM_SQ_HORIZONTAL; col++) {
+    for (var row=0; row<NUM_SQ_VERTICAL; row++) {
+      var x = BORDER_MARGIN_LEFT + col*SQ_PT_TO_PT_WIDTH;
+      var y = BORDER_MARGIN_TOP + row*SQ_PT_TO_PT_WIDTH;
 
-      rect(x, BORDER_MARGIN_TOP, SQ_WIDTH, SQ_WIDTH);
+      rect(x, y, SQ_WIDTH, SQ_WIDTH);
+    }
   }
 }
