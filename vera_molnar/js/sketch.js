@@ -23,14 +23,16 @@ function draw() {
   var SQ_MARGIN = 30;
   var SQ_PT_TO_PT_WIDTH = SQ_WIDTH + SQ_MARGIN;
 
-  var SQ_OVERLAY_REPS = 10;
+  var SQ_OVERLAY_REPS = 20;
 
   for(var col=0; col<NUM_SQ_HORIZONTAL; col++) {
     for (var row=0; row<NUM_SQ_VERTICAL; row++) {
       var x = BORDER_MARGIN_LEFT + col*SQ_PT_TO_PT_WIDTH;
       var y = BORDER_MARGIN_TOP + row*SQ_PT_TO_PT_WIDTH;
 
-      rect(x, y, SQ_WIDTH, SQ_WIDTH);
+      for (var reps = 0; reps<SQ_OVERLAY_REPS; reps++) {
+        rect(x+reps, y+reps, SQ_WIDTH, SQ_WIDTH);
+      }
     }
   }
 }
