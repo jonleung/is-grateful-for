@@ -7,15 +7,17 @@ var COLOR_PALLETES = [
   ['#199EC7', '#40BC86', '#EC555C', '#FCB410'] // http://flatrowors.net/palette/451-exotel
 ];
 
+var repsSlider;
+
 function setup() {
   var cnv = createCanvas(windowWidth-15, windowHeight);
   cnv.parent('sketch');
   colorPalette = _.sample(COLOR_PALLETES);
+
+  repsSlider = createLabeledSlider(10, 10, 'reps', 0, 255, 1, 80);
 }
 
 function draw() {
-  rect(0, 2, width, height);
-
   var BORDER_MARGIN_LEFT = 40;
   var BORDER_MARGIN_TOP = 40;
 
@@ -23,7 +25,8 @@ function draw() {
   var SQ_MARGIN = 30;
   var SQ_PT_TO_PT_WIDTH = SQ_WIDTH + SQ_MARGIN;
 
-  var SQ_OVERLAY_REPS = 20;
+  var SQ_OVERLAY_REPS = repsSlider.value();
+  // text(SQ_OVERLAY_REPS, 10 + 90, 32);
 
   for(var col=0; col<NUM_SQ_HORIZONTAL; col++) {
     for (var row=0; row<NUM_SQ_VERTICAL; row++) {
