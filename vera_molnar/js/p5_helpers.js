@@ -1,9 +1,14 @@
 var drawLabelFunctions = [];
 
 function drawLabels() {
+  push();
+  fill('white');
+  noStroke();
+  rect(0, 0, width, 200);
   drawLabelFunctions.forEach(function(drawLabelFunction) {
     drawLabelFunction();
   })
+  pop();
 }
 
 function createLabeledSlider(x, y, label, a, b, defaultValue, width) {
@@ -22,6 +27,14 @@ function createLabeledSlider(x, y, label, a, b, defaultValue, width) {
     text(slider.value() + ' ' + label, x + width + 10, y + 13);
     pop();
   }
+
+  slider.mouseMoved(function() {
+    if(mouseIsPressed) {
+      if (sliderChanged) {
+        sliderChanged(slider);
+      }
+    }
+  });
 
   drawLabelFunctions.push(slider.drawLabel);
 
