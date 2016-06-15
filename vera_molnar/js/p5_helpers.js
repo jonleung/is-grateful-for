@@ -4,7 +4,7 @@ function drawLabels() {
   push();
   fill('white');
   noStroke();
-  rect(0, 0, width, 200);
+  rect(0, 0, width, 50);
   drawLabelFunctions.forEach(function(drawLabelFunction) {
     drawLabelFunction();
   })

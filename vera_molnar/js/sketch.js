@@ -7,7 +7,7 @@ var COLOR_PALLETES = [
 ];
 
 var BORDER_MARGIN_LEFT = 40;
-var BORDER_MARGIN_TOP = 250;
+var BORDER_MARGIN_TOP = 100;
 
 var colorPalette;
 
@@ -16,15 +16,8 @@ function setup() {
   cnv.parent('sketch');
   colorPalette = _.sample(COLOR_PALLETES);
 
-  numSqHorizontalSlider = createLabeledSlider(30, 30, '# sq horiz', 0, 25, 9, 100);
-  numSqVerticalSlider = createLabeledVerticalSlider(30, 30, '# sq vert', 0, 20, 6, 100);
-
-  sqWidthSlider = createLabeledSlider(BORDER_MARGIN_LEFT-2, 150, 'sq width', 0, 200, 90, 200);
-  sqMarginSlider = createLabeledSlider(BORDER_MARGIN_LEFT + 350 , 150, 'sq margin', 0, 100, 17, 100);
-
-  repsSlider = createLabeledSlider(BORDER_MARGIN_LEFT + 350, 30, 'reps', 0, 20, 10, 80);
-  randomOffsetAmountSliderMin = createLabeledSlider(BORDER_MARGIN_LEFT + 350, 60, 'min rand offset', 0, 3000, 500, 400);
-  // randomOffsetAmountSliderMax = createLabeledSlider(BORDER_MARGIN_LEFT + 350, 85, 'max rand offset', 0, 1000, 100, 400);
+  sqWidthSlider = createLabeledSlider(BORDER_MARGIN_LEFT-2,       10, 'sq width',  0, 200, 90, 200);
+  sqMarginSlider = createLabeledSlider(BORDER_MARGIN_LEFT + 350 , 10, 'sq margin', 0, 100, 17, 100);
 
   drawGrid();
 }
@@ -33,16 +26,12 @@ function drawGrid() {
   clear();
   noFill();
 
-  var NUM_SQ_HORIZONTAL = numSqHorizontalSlider.value();
-  var NUM_SQ_VERTICAL = numSqVerticalSlider.value();
+  var NUM_SQ_HORIZONTAL = 9;
+  var NUM_SQ_VERTICAL = 6;
 
   var SQ_WIDTH = sqWidthSlider.value();
   var SQ_MARGIN = sqMarginSlider.value();
   var SQ_PT_TO_PT_WIDTH = SQ_WIDTH + SQ_MARGIN;
-
-  var SQ_OVERLAY_REPS = repsSlider.value();
-  var RANDOM_OFFSET_MIN = randomOffsetAmountSliderMin.value() / 100;
-  var RANDOM_OFFSET_MAX = RANDOM_OFFSET_MIN + 0;
 
   clear();
 
@@ -54,22 +43,39 @@ function drawGrid() {
       stroke(_.sample(colorPalette));
 
       // 10 15 25 40
-
+//
       function calcNumReps(x) {
-        // return 10+2.5*x+2.5*sq(x);
+        // return pow(x/8.0, 2);  ;//10+2.5*x+2.5*sq(x);
         return [10, 8, 15, 25, 40, 30, 15, 4, 2][x];
       }
 
       function calcRandomOffset(x) {
-        return [0, 8, 28, 45, 55, 55, 55, 30, 40][x];
+        // return pow(x/8.0, 2) * 80;
+        return [0, 9, 16, 55, 60, 55, 55, 30, 50][x];
       }
 
       _.times(calcNumReps(col), function(i) {
+
+        function calcDeltas(maxRadius) {
+          var r = random(0, maxRadius);
+          var theta = random(0, TWO_PI);
+          return {
+            x: sin(theta) * r,
+            y: cos(theta) * r
+          }
+        }
+
+        var offsets = [];
+        offsets.push(calcDeltas(calcRandomOffset(col)));
+        offsets.push(calcDeltas(calcRandomOffset(col)));
+        offsets.push(calcDeltas(calcRandomOffset(col)));
+        offsets.push(calcDeltas(calcRandomOffset(col)));
+
         quad(
-          x          + random(0-calcRandomOffset(col), calcRandomOffset(col)),       y          + random(0-calcRandomOffset(col), calcRandomOffset(col)),
-          x+SQ_WIDTH + random(0-calcRandomOffset(col), calcRandomOffset(col)),       y          + random(0-calcRandomOffset(col), calcRandomOffset(col)),
-          x+SQ_WIDTH + random(0-calcRandomOffset(col), calcRandomOffset(col)),       y+SQ_WIDTH + random(0-calcRandomOffset(col), calcRandomOffset(col)),
-          x          + random(0-calcRandomOffset(col), calcRandomOffset(col)),       y+SQ_WIDTH + random(0-calcRandomOffset(col), calcRandomOffset(col))
+          x          + offsets[0].x,       y          + offsets[0].y,
+          x+SQ_WIDTH + offsets[1].x,       y          + offsets[1].y,
+          x+SQ_WIDTH + offsets[2].x,       y+SQ_WIDTH + offsets[2].y,
+          x          + offsets[3].x,       y+SQ_WIDTH + offsets[3].y
         )
       })
     }
@@ -85,5 +91,7 @@ function sliderChanged() {
 }
 
 function draw() {
-  drawLabels();
+  if (frameCount % 10 === 0) {
+    drawLabels();
+  }
 }
