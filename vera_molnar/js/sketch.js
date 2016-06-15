@@ -57,11 +57,11 @@ function drawGrid() {
 
       function calcNumReps(x) {
         // return 10+2.5*x+2.5*sq(x);
-        return [10, 8, 15, 35, 50, 40, 20, 4, 2][x];
+        return [10, 8, 15, 25, 40, 30, 15, 4, 2][x];
       }
 
       function calcRandomOffset(x) {
-        return [0, 8, 15, 50, 60, 50, 50, 50, 40][x];
+        return [0, 8, 28, 45, 55, 55, 55, 30, 40][x];
       }
 
       _.times(calcNumReps(col), function(i) {
