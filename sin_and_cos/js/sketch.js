@@ -9,7 +9,7 @@ var ding;
 var osc;
 
 function preload() {
-  ding = loadSound('sounds/ding.mp3');
+  // ding = loadSound('sounds/ding.mp3');
 }
 
 function setup() {
@@ -19,7 +19,7 @@ function setup() {
   });
   osc = new p5.Oscillator();
   osc.setType('sine');
-  osc.freq(240);
+  osc.freq(440);
   osc.amp(.5);
   osc.start();
 }
@@ -70,7 +70,10 @@ function draw() {
       var lastAngle = abs(degrees(polyLine.calcLastAngle()))
       if (lastAngle != 0) {
         if (lastAngle < 70) {
-          ding.play();
+          osc.setType('square');
+          setTimeout(function() {
+            osc.setType('sine');
+          }, 500);
         }
       }
       console.log(polyLine.calcEnergy());
@@ -106,7 +109,7 @@ function draw() {
 
   baseY += BAR_HEIGHT;
 
-  var constant = 1000;
+  var constant = 100;
   var calcWeightedLengthOverConstant = polyLine.calcWeightedLength() / constant;
   osc.amp(calcWeightedLengthOverConstant);
   fill('green');
@@ -116,13 +119,13 @@ function draw() {
 
   baseY += BAR_HEIGHT;
 
-  constant = 10;
-  var energyOverConstant = polyLine.calcEnergy() / constant;
+  constant = 2;
+  var energyOverConstant = polyLine.calcEnergy() * constant;
   fill('red');
   rect(0, baseY, energyOverConstant, BAR_HEIGHT);
   fill('gray');
-  text('energy / ' + constant + ' : ' + energyOverConstant, 10, baseY + BAR_HEIGHT - 13);
-  osc.amp(calcWeightedLengthOverConstant);
+  text('energy * ' + constant + ' : ' + energyOverConstant, 10, baseY + BAR_HEIGHT - 13);
+  osc.freq(energyOverConstant);
 
   pop();
 }
