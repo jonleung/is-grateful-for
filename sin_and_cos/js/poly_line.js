@@ -3,13 +3,29 @@ class PolyLine {
     options = options || {};
     this.maxLength = options.maxLength === undefined ? Number.POSITIVE_INFINITY : options.maxLength;
     this.color = options.color === undefined ? '#000000' : options.color;
-
+    this.onAngleChangedByAtMost = options.onAngleChangedByAtMost;
     this.points = [];
+  }
+
+  calcLastAngle() {
+    if (this.points.length <= 2) {
+      return undefined;
+    }
+    else {
+      var a = this.points[this.points.length - 3];
+      var b = this.points[this.points.length - 2];
+      var c = this.points[this.points.length - 1];
+
+      var line1 = new Line(b, a);
+      var line2 = new Line(b, c);
+
+      return line1.calcAngleFrom(line2);
+    }
   }
 
   addPoint(x, y) {
     this.points.push(new Point(x, y));
-    this.length = this.points.length;
+
     while (this.points.length > this.maxLength) {
       this.points.shift();
     }

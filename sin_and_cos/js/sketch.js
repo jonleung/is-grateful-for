@@ -5,10 +5,17 @@ document.body.addEventListener("touchstart", defaultPrevent);
 document.body.addEventListener("touchmove" , defaultPrevent);
 
 var polyLine;
+var ding;
+
+function preload() {
+  ding = loadSound('sounds/ding.mp3');
+}
 
 function setup() {
   var cnv = createCanvas(windowWidth, windowHeight);
-  polyLine = new PolyLine({maxLength: 20});
+  polyLine = new PolyLine({
+    maxLength: 20,
+  });
 }
 
 var prevX = 0;
@@ -16,19 +23,63 @@ var prevY = 0;
 
 var BAR_HEIGHT = 50;
 
+function xdraw() {
+  clear() ;
+
+  var lines = new PolyLine();
+
+  // var a = new Point(windowWidth/2, windowWidth/2);
+  // var b = new Point(windowWidth, windowWidth/2);
+  // var c = new Point(touchX, touchY);
+
+  lines.addPoint(windowWidth, windowHeight/2);
+  lines.addPoint(windowWidth/2, windowHeight/2);
+  lines.addPoint(touchX, touchY);
+
+  // var line1 = new Line(a, b);
+  // var line2 = new Line(a, c);
+
+  // line1.draw();
+  // line2.draw();
+
+  lines.draw();
+
+  text(degrees(lines.calcLastAngle()), 100, 100);
+}
+
 function draw() {
   clear();
   ellipse(touchX, touchY, 40, 40);
-  polyLine.addPoint(touchX, touchY);
-  polyLine.draw();
+  if (polyLine.points.length >= 1) {
+    var lastPoint = polyLine.points[polyLine.points.length-1];
+    if (lastPoint.calcDistFrom(new Point(touchX, touchY)) < 3) {
+      // do nothing
+    }
+    else {
+      polyLine.addPoint(touchX, touchY);
 
+      var lastAngle = abs(degrees(polyLine.calcLastAngle()))
+      if (lastAngle != 0) {
+        if (lastAngle < 70) {
+          ding.play();
+          console.log(lastAngle);
+        }
+      }
+
+    }
+  }
+  else {
+    polyLine.addPoint(touchX, touchY);
+  }
+
+
+  polyLine.draw();
 
   push();
 
   textSize(12);
 
   var baseY = 0;
-  var offsetY = baseY + BAR_HEIGHT;
 
   var weightedLength = polyLine.calcWeightedLength();
   fill('black');
