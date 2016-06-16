@@ -70,7 +70,7 @@ function draw() {
       var lastAngle = abs(degrees(polyLine.calcLastAngle()))
       if (lastAngle != 0) {
         if (lastAngle < 70) {
-          // ding.play();
+          ding.play();
         }
       }
       console.log(polyLine.calcEnergy());
@@ -116,13 +116,13 @@ function draw() {
 
   baseY += BAR_HEIGHT;
 
-
-  var energyOverConstant = polyLine.calcEnergy();
+  constant = 10;
+  var energyOverConstant = polyLine.calcEnergy() / constant;
   fill('red');
   rect(0, baseY, energyOverConstant, BAR_HEIGHT);
   fill('gray');
   text('energy / ' + constant + ' : ' + energyOverConstant, 10, baseY + BAR_HEIGHT - 13);
-  osc.freq(energyOverConstant);
+  osc.amp(calcWeightedLengthOverConstant);
 
   pop();
 }
