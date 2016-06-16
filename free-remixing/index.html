@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Free Remixing</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="Free Mixing"/>
+    <meta property="og:description" content="Randomly mixing things that
+    probably shouldn't go together..."/>
+
+    <style media="screen">
+      html, body, iframe, .container {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+      var songNames = [
+        '8_mile.mp3',
+        'debussy.mp3',
+        'get_low.mp3',
+        'harry_potter.mp3',
+        'imperial_march.mp3',
+        'lotr.mp3'
+      ];
+
+      var youtubeIds = [
+        'I47Y6VHc3Ms', // mlk
+        'HkAK9QRe4ds', // obama_anger_translater
+        'S4VoolvEsyQ', // obama_innaguration
+        'TmQSFGJS454', // sarah_kay
+        'oLWaoMCUg0g' // donald_trump
+      ]
+
+      var songName = _.sample(songNames);
+      var songUrl = 'music/' + songName;
+      var song = new Audio(songUrl);
+      song.play();
+
+      var youtubeId = _.sample(youtubeIds);
+      var youtubeEmbedUrl = 'https://www.youtube.com/embed/' + youtubeId
+                            + '?rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=1';
+
+      var youtubeIframe = '<iframe width="420" height="315" src="'
+                          + youtubeEmbedUrl
+                          + '" frameborder="0" allowfullscreen></iframe>'
+
+      $('.container').html(youtubeIframe);
+    </script>
+  </body>
+</html>
