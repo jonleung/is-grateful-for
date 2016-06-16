@@ -23,6 +23,28 @@ class PolyLine {
     }
   }
 
+  calcEnergy() {
+    var total = 0;
+
+    if (this.points.length <= 2) {
+      return undefined;
+    }
+    for (var i=2; i<this.points.length; i++) {
+      var a = this.points[i - 2];
+      var b = this.points[i - 1];
+      var c = this.points[i];
+
+      var line1 = new Line(b, a);
+      var line2 = new Line(b, c);
+
+      var theta = degrees(abs(line1.calcAngleFrom(line2)));
+
+      total += abs((180 - theta));
+    }
+
+    return total;
+  }
+
   addPoint(x, y) {
     this.points.push(new Point(x, y));
 

@@ -6,6 +6,7 @@ document.body.addEventListener("touchmove" , defaultPrevent);
 
 var polyLine;
 var ding;
+var osc;
 
 function preload() {
   ding = loadSound('sounds/ding.mp3');
@@ -16,6 +17,11 @@ function setup() {
   polyLine = new PolyLine({
     maxLength: 20,
   });
+  osc = new p5.Oscillator();
+  osc.setType('sine');
+  osc.freq(240);
+  osc.amp(.5);
+  osc.start();
 }
 
 var prevX = 0;
@@ -52,7 +58,10 @@ function draw() {
   ellipse(touchX, touchY, 40, 40);
   if (polyLine.points.length >= 1) {
     var lastPoint = polyLine.points[polyLine.points.length-1];
-    if (lastPoint.calcDistFrom(new Point(touchX, touchY)) < 3) {
+    if(lastPoint.calcDistFrom(new Point(touchX, touchY)) === 0) {
+      // polyLine.addPoint(touchX, touchY);
+    }
+    else if (lastPoint.calcDistFrom(new Point(touchX, touchY)) < 3) {
       // do nothing
     }
     else {
@@ -61,11 +70,11 @@ function draw() {
       var lastAngle = abs(degrees(polyLine.calcLastAngle()))
       if (lastAngle != 0) {
         if (lastAngle < 70) {
-          ding.play();
-          console.log(lastAngle);
+          // ding.play();
         }
       }
-
+      console.log(polyLine.calcEnergy());
+      // text(polyLine.calcSharpTurns(), 100, 100);
     }
   }
   else {
@@ -97,12 +106,23 @@ function draw() {
 
   baseY += BAR_HEIGHT;
 
-  var constant = 225;
+  var constant = 1000;
   var calcWeightedLengthOverConstant = polyLine.calcWeightedLength() / constant;
+  osc.amp(calcWeightedLengthOverConstant);
   fill('green');
-  rect(0, baseY, calcWeightedLengthOverConstant * 500, BAR_HEIGHT);
+  rect(0, baseY, calcWeightedLengthOverConstant * 100, BAR_HEIGHT);
   fill('gray');
   text('weighted length / ' + constant + ' : ' + calcWeightedLengthOverConstant, 10, baseY + BAR_HEIGHT - 13);
+
+  baseY += BAR_HEIGHT;
+
+
+  var energyOverConstant = polyLine.calcEnergy();
+  fill('red');
+  rect(0, baseY, energyOverConstant, BAR_HEIGHT);
+  fill('gray');
+  text('energy / ' + constant + ' : ' + energyOverConstant, 10, baseY + BAR_HEIGHT - 13);
+  osc.freq(energyOverConstant);
 
   pop();
 }
