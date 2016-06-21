@@ -1,0 +1,63 @@
+body {
+  font-family: "Georgia";
+  color: rgb(68, 68, 68);
+  font-size: .9em;
+}
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 300px;
+
+  padding-top: 4vh;
+  padding-left: 7%;
+  padding-right: 7%;
+}
+
+.title {
+  font-family: "Lato", sans-serif;
+  font-size: 1.7em;
+  font-weight: normal;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  font-size: inherit;
+  font-weight: inherit;
+  color: rgb(168, 168, 168);
+  font-style: italic;
+  margin-bottom: 35px;
+}
+
+.list-title {
+  font-family: "Lato", "sans-serif";
+  font-size: 1.1em;
+  font-weight: 700;
+  color: rgb(68, 68, 68);
+}
+
+.description {
+  line-height: 2em;
+}
+
+/*=================
+Helpers
+================= */
+
+a {
+  color: #fc6f44;
+  text-decoration: none;
+}
+
+.no-highlight {
+  color: inherit;
+}
+
+.link-out {
+  font-family: sans-serif;
+  font-size: .75em;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+
+}
